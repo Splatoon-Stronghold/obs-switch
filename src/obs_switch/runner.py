@@ -5,10 +5,10 @@ import time
 from typing import List, Dict, Any, Callable
 
 # Import our modules
-from obs_switch.obs_controller import OBSController
-from obs_switch.switch_controller import SwitchController
-from obs_switch.async_consumer import AsyncConsumer
-from obs_switch.switch_handler import translate_code_to_macros
+from obs_controller import OBSController
+from switch_controller import SwitchController
+from async_consumer import AsyncConsumer
+from switch_handler import translate_code_to_macros
 
 
 class Runner:
@@ -185,16 +185,21 @@ class Runner:
         if self.consumer is None:
             conf = {
                 'bootstrap.servers': bootstrap_servers,
-                'group.id': 'obs_switch_consumer',
-                'auto.offset.reset': 'latest'
+                'group.id': 'obs_switch_consumer'
             }
-            self.consumer = AsyncConsumer(conf)
-        
+            print(f"Initializing Kafka consumer with configuration: {conf}")
+            self.consumer = AsyncConsumer(
+                bootstrap_servers=conf['bootstrap.servers'],
+                group_id=conf['group.id']
+            )
+        print(f"Starting Kafka consumer for topics: {topics}")
         self.consumer_running = True
+        print(f"Consumer running: {self.consumer_running}")
         self.consumer_thread = threading.Thread(
             target=self.consumer.custom_consumer_loop,
             args=(topics, self._process_kafka_message, lambda: self.consumer_running)
         )
+        print(f"Consumer thread: {self.consumer_thread}")
         self.consumer_thread.daemon = True
         self.consumer_thread.start()
         print(f"Started Kafka consumer for topics: {topics}")

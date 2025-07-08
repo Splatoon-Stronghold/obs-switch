@@ -6,3 +6,4 @@ python-socketio==5.8.0
 simple-websocket==1.1.0
 argparse>=1.4.0
 typing-extensions>=4.0.0
+requests==2.32.4

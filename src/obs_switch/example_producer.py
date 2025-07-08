@@ -1,4 +1,3 @@
-import json
 import time
 from obs_switch.async_producer import AsyncProducer
 
@@ -11,7 +10,10 @@ def main():
     }
 
     # Create producer instance
-    producer = AsyncProducer(conf)
+    producer = AsyncProducer(
+        bootstrap_servers=conf['bootstrap.servers'],
+        client_id=conf['client.id']
+    )
     topic = 'spl_replay_service'
     
     # Example 1: Change OBS scene

@@ -1,7 +1,7 @@
 import sys
 import json
 from confluent_kafka import Consumer, KafkaError, KafkaException
-from typing import List, Callable, Dict, Any
+from typing import List, Callable
 
 
 class AsyncConsumer:
@@ -12,8 +12,7 @@ class AsyncConsumer:
         self.conf = {
             'bootstrap.servers': bootstrap_servers,
             'group.id': group_id,
-            'enable.auto.commit': 'true',
-            'auto.offset.reset': 'earliest'
+            'enable.auto.commit': 'true'
         }
         self.consumer = Consumer(self.conf)
         self.running = True
@@ -23,7 +22,7 @@ class AsyncConsumer:
         print(f"Message - {message.key().decode('utf-8')}")
         print(json.loads(message.value()))
     
-    def basic_consume_loop(self, topics: List[str], processor: Callable = None):
+    def basic_consumer_loop(self, topics: List[str], processor: Callable = None):
         """Basic consumption loop with default message processor"""
         if processor is None:
             processor = self.default_message_processor
@@ -32,7 +31,7 @@ class AsyncConsumer:
             self.consumer.subscribe(topics)
 
             while self.running:
-                msg = self.consumer.poll(timeout=1.0)
+                msg = self.consumer.poll(timeout=0.2)
                 if msg is None: 
                     continue
 
@@ -51,12 +50,12 @@ class AsyncConsumer:
             # Close down consumer to commit final offsets.
             self.consumer.close()
     
-    def custom_consume_loop(self, topics: List[str], callback: Callable):
+    def custom_consumer_loop(self, topics: List[str], callback: Callable, consumer_running: callable):
         """Custom consumption loop with user-provided callback"""
         try:
             self.consumer.subscribe(topics)
             while self.running:
-                msg = self.consumer.poll(timeout=1.0)
+                msg = self.consumer.poll(timeout=0.2)
                 if msg is None: 
                     continue
 

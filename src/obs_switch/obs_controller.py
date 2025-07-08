@@ -4,7 +4,7 @@ import base64
 import hashlib
 import threading
 import time
-from typing import Dict, List, Callable, Any
+from typing import Dict, Callable
 
 class OBSController:
     """Controller for OBS Studio via WebSocket"""

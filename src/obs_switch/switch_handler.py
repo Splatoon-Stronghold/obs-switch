@@ -1,4 +1,3 @@
-import argparse
 from typing import List, Union
 
 QUICK_TIMEOUT_S = 0.2

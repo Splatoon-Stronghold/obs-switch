@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
-from obs_switch.runner import Runner
+from runner import Runner
 
 def main():
     """
@@ -11,7 +11,7 @@ def main():
     parser.add_argument("--obs-host", default="localhost", help="OBS WebSocket host")
     parser.add_argument("--obs-port", type=int, default=4455, help="OBS WebSocket port")
     parser.add_argument("--obs-password", help="OBS WebSocket password")
-    parser.add_argument("--switch-url", default="http://localhost:8000", help="NXBT webapp URL")
+    parser.add_argument("--switch-url", default="http://192.168.1.29:8000", help="NXBT webapp URL")
     parser.add_argument("--kafka-bootstrap-servers", default="localhost:9092", help="Kafka bootstrap servers")
     parser.add_argument("--kafka-topics", nargs="+", default=["spl_replay_service"], help="Kafka topics to subscribe to")
     
