@@ -56,6 +56,37 @@ class MacroController:
         }
         return macro_dict.get(macro_input)
 
+    def macro_to_controller(self, macro_input: str) -> Union[str, None]:
+        macro_dict = {
+            'L': 'A',
+            'K': 'B',
+            'I': 'X',
+            'J': 'Y',
+            '8': 'R',
+            '9': 'ZR',
+            '1': 'ZL',
+            '2': 'L',
+            '7': '-',
+            '6': '+',
+            'T': 'L_STICK_PRESS',
+            'Y': 'R_STICK_PRESS',
+            '[': 'HOME',
+            ']': 'CAPTURE',
+            'B': 'DPAD_DOWN',
+            'G': 'DPAD_UP',
+            'V': 'DPAD_LEFT',
+            'N': 'DPAD_RIGHT',
+            'W': 'LEFT_STICK_UP',
+            'S': 'LEFT_STICK_DOWN',
+            'A': 'LEFT_STICK_LEFT',
+            'D': 'LEFT_STICK_RIGHT',
+            'ArrowDown': 'RIGHT_STICK_UP',
+            'ArrowUp': 'RIGHT_STICK_DOWN',
+            'ArrowLeft': 'RIGHT_STICK_LEFT',
+            'ArrowRight': 'RIGHT_STICK_RIGHT'
+        }
+        return macro_dict.get(macro_input)
+
 class Keyboard:
     """
     The Nintendo Switch default
