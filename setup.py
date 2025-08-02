@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="obs_switch",
-    version="0.0.2",
+    version="0.0.3",
     author="Jason Jiménez Cruz",
     author_email="jasonjimenezcruz@gmail.com",
     description="OBS Studio and Nintendo Switch controller integration via Kafka",
